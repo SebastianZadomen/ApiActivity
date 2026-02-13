@@ -1,39 +1,29 @@
-package com.example.apiappactividad.view
+package com.example.apiappactividad.ui.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.apiappactividad.R
 import com.example.apiappactividad.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen3(navController: NavController) {
+fun Screen2(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -64,13 +54,14 @@ fun Screen3(navController: NavController) {
                         icon = R.drawable.outline_bookmark_heart_24,
                         label = "Favorites"
                     ) {
-                        navController.navigate(Routes.Pantalla2.route)
+
                     }
 
                     BottomBarItem(
                         icon = R.drawable.outline_construction_24,
                         label = "Settings"
                     ) {
+                        navController.navigate(Routes.Pantalla3.route)
                     }
                 }
             }
@@ -82,7 +73,7 @@ fun Screen3(navController: NavController) {
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text("hola a todos3", fontSize = 30.sp)
+            Text("hola a todos1", fontSize = 30.sp)
         }
     }
 
