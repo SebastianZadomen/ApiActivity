@@ -1,6 +1,6 @@
 package com.example.apiappactividad.data.model
 
-import com.example.apiappactividad.data.mimgodel.Result
+import com.example.apiappactividad.data.model.Result
 
 
 data class DadesAPI(

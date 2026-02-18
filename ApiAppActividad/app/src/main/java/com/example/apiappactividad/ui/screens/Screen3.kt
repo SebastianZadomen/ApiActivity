@@ -19,10 +19,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.apiappactividad.R
 import com.example.apiappactividad.Routes
+import com.example.apiappactividad.ui.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen3(navController: NavController) {
+fun Screen3(navController: NavController, viewModel : MainViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -43,20 +44,20 @@ fun Screen3(navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_av_timer_24,
                         label = "Home"
                     ) { navController.navigate(Routes.Pantalla1.route)
                     }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_bookmark_heart_24,
                         label = "Favorites"
                     ) {
                         navController.navigate(Routes.Pantalla2.route)
                     }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_construction_24,
                         label = "Settings"
                     ) {
@@ -69,7 +70,7 @@ fun Screen3(navController: NavController) {
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(0.16f.dp),
         ) {
             Text("hola a todos3", fontSize = 30.sp)
         }

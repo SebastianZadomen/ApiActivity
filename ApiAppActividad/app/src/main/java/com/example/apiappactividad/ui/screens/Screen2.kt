@@ -20,10 +20,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.apiappactividad.R
 import com.example.apiappactividad.Routes
+import com.example.apiappactividad.ui.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen2(navController: NavController) {
+fun Screen2(navController: NavController, viewModel : MainViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -44,20 +45,20 @@ fun Screen2(navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_av_timer_24,
                         label = "Home"
                     ) { navController.navigate(Routes.Pantalla1.route)
                     }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_bookmark_heart_24,
                         label = "Favorites"
                     ) {
 
                     }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_construction_24,
                         label = "Settings"
                     ) {

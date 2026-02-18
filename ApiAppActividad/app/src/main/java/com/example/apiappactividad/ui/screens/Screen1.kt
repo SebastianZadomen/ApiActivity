@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomAppBar
@@ -26,7 +25,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -34,17 +32,16 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.ui.Alignment
 
 
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.apiappactividad.Routes
+import com.example.apiappactividad.data.model.Result
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen1(navController: NavController , viewModel : MainViewModel) {
+fun Screen1(navController: NavController, viewModel: MainViewModel, ) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -65,19 +62,19 @@ fun Screen1(navController: NavController , viewModel : MainViewModel) {
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_av_timer_24,
                         label = "Home"
                     ) { }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_bookmark_heart_24,
                         label = "Favorites"
                     ) {
                         navController.navigate(Routes.Pantalla2.route)
                     }
 
-                    BottomBarItem(
+                    viewModel.BarItemBtn(
                         icon = R.drawable.outline_construction_24,
                         label = "Settings"
                     ) {
@@ -97,7 +94,9 @@ fun Screen1(navController: NavController , viewModel : MainViewModel) {
                     // Iterem sobre objectes de tipus 'Result'
                     items(viewModel.characterList) { character ->
                         Card(
-                            modifier = Modifier.fillMaxWidth().padding(8.dp),
+                            modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{
+                                viewModel.selectedCharacter = character
+                                navController.navigate(Routes.DetailScreen.route)},
                             elevation = CardDefaults.cardElevation(4.dp)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
@@ -122,21 +121,7 @@ fun Screen1(navController: NavController , viewModel : MainViewModel) {
 
 }
 
-@Composable
-fun BottomBarItem(icon: Int,label: String,onClick: () -> Unit ){
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { onClick() }
-    ) {
-        Icon(
-            painter = painterResource(icon),
-            tint = colorResource(id = R.color.gray),
-            contentDescription = label,
-            modifier = Modifier.size(44.dp)
-        )
-        Text(label, fontSize = 12.sp, color = colorResource(id = R.color.gray))
-    }
-}
+
 
 fun CleanList(listString : List<String>): String{
 

@@ -1,5 +1,4 @@
-package com.example.apiappactividad.data.mimgodel
-
+package com.example.apiappactividad.data.model
 
 data class Result (
     val name: String,

@@ -1,5 +1,5 @@
 package com.example.apiappactividad.data
-import com.example.apiappactividad.data.mimgodel.Result
+import com.example.apiappactividad.data.model.Result
 import kotlin.collections.emptyList
 import com.example.apiappactividad.data.network.RetrofitClient
 
