@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 
 import com.example.apiappactividad.navigation.Destinations
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
+import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,45 +46,115 @@ import com.example.apiappactividad.ui.viewmodel.MainViewModel
 fun Screen1(
     navController: NavController,
     viewModel: MainViewModel,
+    searchViewModel: SearchBarViewModel
 ) {
+    val query = searchViewModel.searchedText
 
-        Box(modifier = Modifier.fillMaxSize()) {
+    val filteredList = viewModel.characterList.filter { result ->
+        result.name
+            .lowercase()
+            .contains(query.lowercase().trim())
+    }
 
-            if (viewModel.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            } else {
+    Column(modifier = Modifier.fillMaxSize()) {
+
+        SearchBar(
+            query = query,
+            onQueryChange = { searchViewModel.onSearchTextChange(it) },
+            onSearch = { searchViewModel.onSearch(it) },
+            active = searchViewModel.active,
+            onActiveChange = { searchViewModel.onActiveChange(it) },
+            placeholder = { Text("Buscar personaje...") },
+            leadingIcon = {
+                Icon(Icons.Default.Search, contentDescription = null)
+            },
+            trailingIcon = {
+                if (query.isNotEmpty()) {
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            searchViewModel.onSearchTextChange("")
+                        }
+                    )
+                }
+            }
+        ) {
+
+            if (query.isEmpty()) {
                 LazyColumn {
-                    // Iterem sobre objectes de tipus 'Result'
-                    items(viewModel.characterList) { character ->
-                        Card(
-                            modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{
-                                viewModel.selectedCharacter = character
-                                navController.navigate(Destinations.DetailScreen.route)},
-                            elevation = CardDefaults.cardElevation(4.dp)
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                // Usem les variables que t'ha creat el plugin
-                                val extract = CleanList(character.roles)
-                                Text(
-                                    text = character.name,
-                                    style = MaterialTheme.typography.headlineSmall
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(text = "Gènere: ${character.gender}")
-                                Text(text = "Roles: ${extract}")
-                                // Fixa't que el plugin ha posat 'birth_year' amb guió baix
-                                Text(text = "Status: ${character.status}")
+                    items(searchViewModel.searchHistory) { item ->
+
+                        ListItem(
+                            headlineContent = { Text(item) },
+                            modifier = Modifier.clickable {
+
+
+                                searchViewModel.onSearchTextChange(item)
+
                             }
+                        )
+                    }
+                }
+
+            } else {
+
+                LazyColumn {
+                    items(filteredList) { character ->
+
+                        ListItem(
+                            headlineContent = { Text(character.name) },
+                            modifier = Modifier.clickable {
+                                viewModel.selectedCharacter = character
+                                navController.navigate(Destinations.DetailScreen.route)
+                                searchViewModel.onActiveChange(false)
+                                searchViewModel.searchHistory.add(query)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+
+
+        if (viewModel.isLoading) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+        } else {
+            LazyColumn(
+                contentPadding = PaddingValues(bottom = 16.dp)
+            ) {
+                items(filteredList) { character ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .clickable {
+                                viewModel.selectedCharacter = character
+                                navController.navigate(Destinations.DetailScreen.route)
+                            },
+                        elevation = CardDefaults.cardElevation(4.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+
+                            val extract = CleanList(character.roles)
+
+                            Text(
+                                text = character.name,
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(text = "Gènere: ${character.gender}")
+                            Text(text = "Roles: $extract")
+                            Text(text = "Status: ${character.status}")
                         }
                     }
                 }
             }
         }
     }
-
-
-
-
+}
 
 fun CleanList(listString : List<String>): String{
 

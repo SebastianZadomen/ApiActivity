@@ -31,16 +31,15 @@ class SearchBarViewModel : ViewModel() {
         private set
 
     // FUNCIONS (Events)
-
     fun onSearchTextChange(text: String) {
-
+        searchedText = text
     }
 
     fun onActiveChange(isActive: Boolean) {
         active = isActive
         // Opcional: Si tanquem la barra, potser volem netejar la cerca
         if (!isActive) {
-            // searchedText = "" (Descomenta si vols que s'esborri en tancar)
+             searchedText = ""
             // filteredNames.clear()
         }
     }
@@ -48,8 +47,7 @@ class SearchBarViewModel : ViewModel() {
     fun onSearch(text: String) {
         if (text.isNotEmpty()) {
             searchHistory.add(text)
-            // No tanquem la barra ni esborrem el text immediatament
-            // perquè l'usuari vulgui veure el resultat
+
             onActiveChange(false)
         }
     }

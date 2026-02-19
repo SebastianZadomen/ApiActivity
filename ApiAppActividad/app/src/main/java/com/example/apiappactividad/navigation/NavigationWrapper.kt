@@ -10,11 +10,13 @@ import com.example.apiappactividad.ui.screens.Screen1
 import com.example.apiappactividad.ui.screens.Screen2
 import com.example.apiappactividad.ui.screens.Screen3
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
+import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
 
 @Composable
 fun NavigationWrapper(navController: NavHostController) {
 
-    val viewModel: MainViewModel = viewModel()
+    val mainViewModel: MainViewModel = viewModel()
+    val searchViewModel: SearchBarViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -22,20 +24,19 @@ fun NavigationWrapper(navController: NavHostController) {
     ) {
 
         composable(Destinations.Screen1.route) {
-
-            Screen1(navController, viewModel)
+            Screen1(navController, mainViewModel, searchViewModel)
         }
 
         composable(Destinations.Screen2.route) {
-            Screen2(navController, viewModel)
+            Screen2(navController, mainViewModel)
         }
 
         composable(Destinations.Screen3.route) {
-            Screen3(navController, viewModel)
+            Screen3(navController, mainViewModel)
         }
 
         composable(Destinations.DetailScreen.route) {
-            DetailScreen(navController, viewModel)
+            DetailScreen(navController, mainViewModel)
         }
     }
 }
