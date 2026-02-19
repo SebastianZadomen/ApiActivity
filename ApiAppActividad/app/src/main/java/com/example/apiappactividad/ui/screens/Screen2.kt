@@ -19,65 +19,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.apiappactividad.R
-import com.example.apiappactividad.Routes
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Screen2(navController: NavController, viewModel : MainViewModel) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text("API List")
-                }
-            )
-        },
-        bottomBar = {
-            BottomAppBar(containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary, ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
 
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_av_timer_24,
-                        label = "Home"
-                    ) { navController.navigate(Routes.Pantalla1.route)
-                    }
-
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_bookmark_heart_24,
-                        label = "Favorites"
-                    ) {
-
-                    }
-
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_construction_24,
-                        label = "Settings"
-                    ) {
-                        navController.navigate(Routes.Pantalla3.route)
-                    }
-                }
-            }
-        },
-
-        ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text("hola a todos1", fontSize = 30.sp)
         }
     }
 
-}
+
 
 

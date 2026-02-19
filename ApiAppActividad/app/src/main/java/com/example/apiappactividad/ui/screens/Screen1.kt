@@ -6,12 +6,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.apiappactividad.R
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,72 +19,35 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.BottomAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
 
 
 import androidx.compose.ui.unit.dp
-import com.example.apiappactividad.Routes
-import com.example.apiappactividad.data.model.Result
-import com.example.apiappactividad.ui.viewmodel.MainViewModel
 
+import com.example.apiappactividad.navigation.Destinations
+import com.example.apiappactividad.ui.viewmodel.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen1(navController: NavController, viewModel: MainViewModel, ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text("API List")
-                }
-            )
-        },
-        bottomBar = {
-            BottomAppBar(containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary, ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
+fun Screen1(
+    navController: NavController,
+    viewModel: MainViewModel,
+) {
 
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_av_timer_24,
-                        label = "Home"
-                    ) { }
-
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_bookmark_heart_24,
-                        label = "Favorites"
-                    ) {
-                        navController.navigate(Routes.Pantalla2.route)
-                    }
-
-                    viewModel.BarItemBtn(
-                        icon = R.drawable.outline_construction_24,
-                        label = "Settings"
-                    ) {
-                        navController.navigate(Routes.Pantalla3.route)
-                    }
-                }
-            }
-        },
-
-        ) { paddingValues ->
-        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+        Box(modifier = Modifier.fillMaxSize()) {
 
             if (viewModel.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -96,7 +58,7 @@ fun Screen1(navController: NavController, viewModel: MainViewModel, ) {
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(8.dp).clickable{
                                 viewModel.selectedCharacter = character
-                                navController.navigate(Routes.DetailScreen.route)},
+                                navController.navigate(Destinations.DetailScreen.route)},
                             elevation = CardDefaults.cardElevation(4.dp)
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
@@ -119,7 +81,7 @@ fun Screen1(navController: NavController, viewModel: MainViewModel, ) {
         }
     }
 
-}
+
 
 
 
