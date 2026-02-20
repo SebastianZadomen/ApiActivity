@@ -1,10 +1,12 @@
 package com.example.apiappactividad
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -21,9 +23,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -61,11 +66,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp() {
     var selectedItem by remember { mutableIntStateOf(0) }
-
+    var color by remember { mutableStateOf(Color.White)  }
     // Creem el navController aquí, al nivell superior
     val navController = rememberNavController()
+    val mainViewModel: MainViewModel = viewModel()
 
-    // Llista d'opcions del menú
     val items = listOf(
 
         NavigationItem("Home", Icons.Default.Home, Destinations.Screen1, 1),
@@ -94,10 +99,17 @@ fun MyApp() {
             }
         }
     ) { innerPadding ->
-        // Important: Passem el padding al contingut perquè la barra no tapi la pantalla
-        Box(modifier = Modifier.padding(innerPadding)) {
-            // Carreguem el NavigationWrapper passant-li el controlador
-            NavigationWrapper(navController)
+        if (!mainViewModel.state)
+        {
+            color = Color.Black
+        }
+        else
+        {
+            color = Color.White
+        }
+
+        Box(modifier = Modifier.padding(innerPadding).background(color)) {
+            NavigationWrapper(navController,mainViewModel)
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.apiappactividad.data.model
 
+import android.R
+
 data class Result (
     val name: String,
     val img: String,
@@ -9,5 +11,6 @@ data class Result (
     val status : String,
     val alias : List<String>,
     val birthplace : String,
+    val favorites : Boolean = false
    // val relatives: List<String>
 )

@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,21 +39,7 @@ class MainViewModel : ViewModel() {
     }
     var selectedCharacter: Result? = null
 
-    @Composable
-    fun BarItemBtn(icon: Int,label: String,onClick: () -> Unit ){
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.clickable { onClick() }
-        ) {
-            Icon(
-                painter = painterResource(icon),
-                tint = colorResource(id = R.color.gray),
-                contentDescription = label,
-                modifier = Modifier.size(44.dp)
-            )
-            Text(label, fontSize = 12.sp, color = colorResource(id = R.color.gray))
-        }
-    }
+
     fun fetchCharacters() {
         viewModelScope.launch {
             isLoading = true
@@ -59,5 +47,15 @@ class MainViewModel : ViewModel() {
             isLoading = false
         }
     }
+
+    var selectedText by mutableStateOf("")
+
+    var showGrid by mutableStateOf(true)
+
+    val showMode = listOf("List", "Grid")
+
+    var expanded by  mutableStateOf(false)
+
+    var state by mutableStateOf(true)
 }
 

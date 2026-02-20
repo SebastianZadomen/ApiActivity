@@ -13,9 +13,8 @@ import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
 
 @Composable
-fun NavigationWrapper(navController: NavHostController) {
+fun NavigationWrapper(navController: NavHostController, mainViewModel : MainViewModel) {
 
-    val mainViewModel: MainViewModel = viewModel()
     val searchViewModel: SearchBarViewModel = viewModel()
 
     NavHost(
