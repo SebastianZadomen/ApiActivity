@@ -99,7 +99,7 @@ fun MyApp() {
             }
         }
     ) { innerPadding ->
-        if (!mainViewModel.state)
+        if (mainViewModel.state)
         {
             color = Color.Black
         }

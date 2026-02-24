@@ -26,6 +26,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
@@ -40,6 +41,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 
 
@@ -157,10 +159,7 @@ fun Screen1(
                                     contentDescription = "Imatge character",
                                     modifier = Modifier
                                         .size(50.dp)
-                                        .background(
-                                            Color.LightGray,
-                                            shape = MaterialTheme.shapes.small
-                                        )
+                                        .clip(RoundedCornerShape(16.dp))
 
                                 )
 
@@ -198,7 +197,7 @@ fun Screen1(
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
 
-                                val extract = CleanList(character.roles)
+                                val extract = viewModel.CleanList(character.roles)
 
                                 Text(
                                     text = character.name,
@@ -217,24 +216,5 @@ fun Screen1(
     }
 }
 
-fun CleanList(listString : List<String>): String{
-
-    var palabra : String = ""
-    for (item in listString) {
-        if(listString[listString.size-1] == item)
-        {
-            palabra +=item
-        }
-        else
-        {
-            palabra="$item, "
-        }
-    }
-    if (listString.isEmpty())
-    {
-        palabra = "None"
-    }
-    return palabra
-}
 
 

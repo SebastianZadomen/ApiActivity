@@ -43,7 +43,7 @@ fun Screen3(navController: NavController, viewModel : MainViewModel) {
 
             ConstraintLayout(Modifier.fillMaxSize()) {
 
-                val ( OpMode , switch, OpShow, list,dropMenu) = createRefs()
+                val ( OpMode , switch, OpShow, list) = createRefs()
 
                 Text("Dark Mode", fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,

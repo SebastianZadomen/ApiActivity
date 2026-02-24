@@ -56,6 +56,29 @@ class MainViewModel : ViewModel() {
 
     var expanded by  mutableStateOf(false)
 
-    var state by mutableStateOf(true)
+    var state by mutableStateOf(false)
+
+
+    fun CleanList(listString : List<String>): String{
+
+        var palabra : String = ""
+        for (item in listString) {
+            if(listString[listString.size-1] == item)
+            {
+                palabra +=item
+            }
+            else
+            {
+                palabra="$item, "
+            }
+        }
+        if (listString.isEmpty())
+        {
+            palabra = "None"
+        }
+        return palabra
+    }
+
+
 }
 
