@@ -1,6 +1,7 @@
 package com.example.apiappactividad.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,11 +10,12 @@ import com.example.apiappactividad.ui.screens.DetailScreen
 import com.example.apiappactividad.ui.screens.Screen1
 import com.example.apiappactividad.ui.screens.Screen2
 import com.example.apiappactividad.ui.screens.Screen3
+import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
 
 @Composable
-fun NavigationWrapper(navController: NavHostController, mainViewModel : MainViewModel) {
+fun NavigationWrapper(navController: NavHostController, mainViewModel : MainViewModel, bdViewModel: CharacterViewModel) {
 
     val searchViewModel: SearchBarViewModel = viewModel()
 
@@ -27,7 +29,7 @@ fun NavigationWrapper(navController: NavHostController, mainViewModel : MainView
         }
 
         composable(Destinations.Screen2.route) {
-            Screen2(navController, mainViewModel)
+            Screen2(navController, mainViewModel, bdViewModel)
         }
 
         composable(Destinations.Screen3.route) {
@@ -35,7 +37,7 @@ fun NavigationWrapper(navController: NavHostController, mainViewModel : MainView
         }
 
         composable(Destinations.DetailScreen.route) {
-            DetailScreen(navController, mainViewModel)
+            DetailScreen(navController, mainViewModel, bdViewModel)
         }
     }
 }

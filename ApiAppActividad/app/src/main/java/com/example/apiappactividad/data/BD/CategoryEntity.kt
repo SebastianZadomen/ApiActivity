@@ -1,0 +1,16 @@
+package com.example.apiappactividad.data.BD
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "characters")
+data class CharacterEntity(
+    @PrimaryKey val id: Int,
+    val name: String,
+    val img: String,
+    val gender: String,
+    val age: String,
+    val status: String,
+    val birthplace: String,
+    val isFavorite: Boolean = false
+)

@@ -17,6 +17,5 @@ sealed class Destinations (val route: String){
 
     object Screen3 : Destinations("screen3")
 
-    // NOVA PANTALLA (No surt al menú, però existeix)
    object DetailScreen : Destinations("detailScreen")
 }

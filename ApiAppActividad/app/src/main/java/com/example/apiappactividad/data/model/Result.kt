@@ -3,6 +3,7 @@ package com.example.apiappactividad.data.model
 import android.R
 
 data class Result (
+    val id : Int,
     val name: String,
     val img: String,
     val gender: String,
