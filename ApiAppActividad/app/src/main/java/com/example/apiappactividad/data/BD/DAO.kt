@@ -22,4 +22,8 @@ interface CharacterDao {
 
     @Update
     suspend fun updateCharacter(character: CharacterEntity)
+
+    @Delete
+    suspend fun deleteCharacter(character: CharacterEntity)
+
 }

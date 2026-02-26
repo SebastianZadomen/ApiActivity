@@ -12,5 +12,5 @@ data class CharacterEntity(
     val age: String,
     val status: String,
     val birthplace: String,
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean = false
 )

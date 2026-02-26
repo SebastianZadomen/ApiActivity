@@ -14,13 +14,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,9 +38,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.apiappactividad.data.BD.CharacterEntity
+import com.example.apiappactividad.data.BD.toEntity
 import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.selects.select
+
+
 
 @Composable
 fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewModel: CharacterViewModel) {
@@ -40,6 +51,11 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
     val character = viewModel.selectedCharacter ?: return
     val extractRoles = viewModel.CleanList(character.roles)
     val extractAlias = viewModel.CleanList(character.alias)
+    val characterEntity = character.toEntity()
+    var isFavorite by remember {
+        mutableStateOf(characterEntity.isFavorite)
+    }
+
 
     LazyColumn(
         modifier = Modifier
@@ -49,22 +65,47 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
     ) {
 
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
             ) {
+
                 Text(
-                    text = character.name,
+                    text = characterEntity.name,
                     fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.Center)
                 )
-               /* IconButton(onClick = { bdViewModel.toggleFavorite() }) {
-                    Icon(Icons.Default.Delete, "Esborrar")
-                }*/
+
+                IconButton(
+                    onClick = {
+                        if (isFavorite) {
+                            bdViewModel.deleteFavorite(characterEntity)
+                        } else {
+                            bdViewModel.insertCharacter(
+                                characterEntity.copy(isFavorite = true)
+                            )
+                        }
+
+                        isFavorite = !isFavorite
+                    },
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                ) {
+                    Icon(
+                        imageVector = if (isFavorite)
+                            Icons.Default.Favorite
+                        else
+                            Icons.Default.FavoriteBorder,
+                        contentDescription = "Favorito",
+                        tint = if (isFavorite) Color.Red else Color.Gray
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(20.dp))
 
             AsyncImage(
-                model = character.img,
+                model = characterEntity.img,
                 contentDescription = "imgCharacter",
                 modifier = Modifier
                     .size(250.dp)
@@ -87,11 +128,11 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Text("Gender: ${character.gender}",
+                Text("Gender: ${characterEntity.gender}",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Text("Status: ${character.status}",
+                Text("Status: ${characterEntity.status}",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )

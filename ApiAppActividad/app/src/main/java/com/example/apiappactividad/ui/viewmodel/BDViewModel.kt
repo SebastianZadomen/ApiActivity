@@ -30,15 +30,23 @@ class CharacterViewModel(private val dao: CharacterDao) : ViewModel() {
                 emptyList()
             )
 
-    // Insertar personaje (cuando viene de la API)
     fun insertCharacter(character: CharacterEntity) = viewModelScope.launch {
         dao.insertCharacter(character)
     }
 
-    // Cambiar estado favorito
     fun toggleFavorite(character: CharacterEntity) = viewModelScope.launch {
         dao.updateCharacter(
             character.copy(isFavorite = !character.isFavorite)
+        )
+    }
+    fun upsertFavorite(character: CharacterEntity) = viewModelScope.launch {
+        dao.insertCharacter(
+            character.copy(isFavorite = !character.isFavorite)
+        )
+    }
+    fun deleteFavorite(character: CharacterEntity) =  viewModelScope.launch {
+        dao.deleteCharacter(
+            character.copy()
         )
     }
 }
