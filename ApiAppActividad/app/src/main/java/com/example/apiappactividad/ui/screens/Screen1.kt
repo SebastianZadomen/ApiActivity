@@ -1,14 +1,12 @@
 package com.example.apiappactividad.ui.screens
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,7 +27,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,10 +36,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
-import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 
 
 import androidx.compose.ui.unit.dp
@@ -51,6 +46,7 @@ import coil.compose.AsyncImage
 import com.example.apiappactividad.navigation.Destinations
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
+import com.example.apiappactividad.ui.viewmodel.ViewDesign
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +54,8 @@ import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
 fun Screen1(
     navController: NavController,
     viewModel: MainViewModel,
-    searchViewModel: SearchBarViewModel
+    searchViewModel: SearchBarViewModel,
+    vDesign: ViewDesign
 ) {
     val query = searchViewModel.searchedText
 
@@ -90,8 +87,8 @@ fun Screen1(
                             searchViewModel.active = false
                         }
                     )
+                }
 
-            }
         ) {
 
             if (query.isEmpty()) {
@@ -136,7 +133,7 @@ fun Screen1(
         } else {
             if (!viewModel.showGrid) {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Fixed(vDesign.gridCells),
                     contentPadding = PaddingValues(8.dp)
                 ) {
                     items(filteredList) { character ->
@@ -158,7 +155,7 @@ fun Screen1(
                                     model = character?.img,
                                     contentDescription = "Imatge character",
                                     modifier = Modifier
-                                        .size(50.dp)
+                                        .size(vDesign.imageSizeScreen1)
                                         .clip(RoundedCornerShape(16.dp))
 
                                 )
