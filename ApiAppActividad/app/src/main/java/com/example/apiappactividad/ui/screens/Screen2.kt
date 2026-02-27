@@ -41,6 +41,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.apiappactividad.R
 import com.example.apiappactividad.data.BD.CharacterEntity
+import com.example.apiappactividad.data.BD.toResult
 import com.example.apiappactividad.navigation.Destinations
 import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
@@ -59,7 +60,7 @@ fun Screen2(navController: NavController, viewModel : MainViewModel, bdViewModel
                     .fillMaxWidth()
                     .padding(8.dp)
                     .clickable {
-                        bdViewModel.selectedCharacterBd = character
+                        viewModel.selectedCharacter = character.toResult()
                         navController.navigate(Destinations.DetailScreen.route)
                     },
                 elevation = CardDefaults.cardElevation(4.dp)
@@ -162,6 +163,9 @@ fun Screen2(navController: NavController, viewModel : MainViewModel, bdViewModel
 */
 
     }
+
+
+
 
 
 

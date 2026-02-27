@@ -91,17 +91,16 @@
         Scaffold(
             bottomBar = {
                 NavigationBar {
-                    items.forEachIndexed { index, item -> // Bucle per crear cada ítem
+                    items.forEachIndexed { index, item ->
                         NavigationBarItem(
-                            selected = index == selectedItem ,// Marquem si està seleccionat
+                            selected = index == selectedItem ,
                             label = { Text(item.label) },
                             icon = {
                                 Icon(imageVector = item.icon, contentDescription = item.label)
                             },
                             onClick = {
-                                selectedItem = index // Actualitzem l'estat visual
-                                navController.navigate(item.route.route){ // Naveguem a la ruta
-                                    // Opcional: Evitar múltiples còpies de la mateixa pantalla a la pila
+                                selectedItem = index
+                                navController.navigate(item.route.route){
                                     launchSingleTop = true
                                 }
                             }
@@ -119,7 +118,7 @@
                 color = Color.White
             }
 
-            Box(modifier = Modifier.padding(innerPadding).background(color)) {
+            Box(modifier = Modifier.background(color)) {
                 NavigationWrapper(navController,mainViewModel,bdViewModel)
             }
         }

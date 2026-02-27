@@ -81,15 +81,16 @@ fun Screen1(
                 Icon(Icons.Default.Search, contentDescription = null)
             },
             trailingIcon = {
-                if (query.isNotEmpty()) {
+
                     Icon(
                         Icons.Default.Close,
                         contentDescription = null,
                         modifier = Modifier.clickable {
                             searchViewModel.onSearchTextChange("")
+                            searchViewModel.active = false
                         }
                     )
-                }
+
             }
         ) {
 
@@ -100,7 +101,6 @@ fun Screen1(
                         ListItem(
                             headlineContent = { Text(item) },
                             modifier = Modifier.clickable {
-
 
                                 searchViewModel.onSearchTextChange(item)
 

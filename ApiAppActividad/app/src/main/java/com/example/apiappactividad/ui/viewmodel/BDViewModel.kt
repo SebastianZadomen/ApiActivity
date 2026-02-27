@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class CharacterViewModel(private val dao: CharacterDao) : ViewModel() {
 
     // Todos los personajes
-    var selectedCharacterBd: CharacterEntity? = null
+    var selectedCharacterBd : CharacterEntity? = null
     val characters: StateFlow<List<CharacterEntity>> =
         dao.getAllCharacters()
             .stateIn(
@@ -21,7 +21,6 @@ class CharacterViewModel(private val dao: CharacterDao) : ViewModel() {
                 emptyList()
             )
 
-    // Solo favoritos
     val favorites: StateFlow<List<CharacterEntity>> =
         dao.getFavorites()
             .stateIn(
@@ -36,7 +35,7 @@ class CharacterViewModel(private val dao: CharacterDao) : ViewModel() {
 
     fun toggleFavorite(character: CharacterEntity) = viewModelScope.launch {
         dao.updateCharacter(
-            character.copy(isFavorite = !character.isFavorite)
+            character.copy(isFavorite = true)
         )
     }
     fun upsertFavorite(character: CharacterEntity) = viewModelScope.launch {

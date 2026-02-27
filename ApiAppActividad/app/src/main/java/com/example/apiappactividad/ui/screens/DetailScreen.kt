@@ -1,4 +1,5 @@
 package com.example.apiappactividad.ui.screens
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,8 +44,7 @@ import com.example.apiappactividad.data.BD.toEntity
 import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.selects.select
-
-
+import java.io.Console
 
 @Composable
 fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewModel: CharacterViewModel) {
@@ -51,16 +52,16 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
     val character = viewModel.selectedCharacter ?: return
     val extractRoles = viewModel.CleanList(character.roles)
     val extractAlias = viewModel.CleanList(character.alias)
-    val characterEntity = character.toEntity()
-    var isFavorite by remember {
-        mutableStateOf(characterEntity.isFavorite)
-    }
+    val favorites by bdViewModel.favorites.collectAsState()
+
+    val isFavorite = favorites.any { it.id == character.id }
 
 
     LazyColumn(
+
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
+            .padding(top = 60.dp, start = 10.dp, end = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -70,42 +71,37 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
                     .fillMaxWidth()
                     .padding(8.dp)
             ) {
-
                 Text(
-                    text = characterEntity.name,
+                    text = character.name,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.Center)
                 )
-
                 IconButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
                     onClick = {
                         if (isFavorite) {
-                            bdViewModel.deleteFavorite(characterEntity)
+                            bdViewModel.deleteFavorite(character.toEntity())
                         } else {
                             bdViewModel.insertCharacter(
-                                characterEntity.copy(isFavorite = true)
+                                character.toEntity().copy(isFavorite = true)
                             )
                         }
-
-                        isFavorite = !isFavorite
-                    },
-                    modifier = Modifier.align(Alignment.CenterEnd)
+                    }
                 ) {
                     Icon(
-                        imageVector = if (isFavorite)
-                            Icons.Default.Favorite
-                        else
-                            Icons.Default.FavoriteBorder,
+                        imageVector = Icons.Default.Favorite,
                         contentDescription = "Favorito",
                         tint = if (isFavorite) Color.Red else Color.Gray
                     )
                 }
             }
+
+
             Spacer(modifier = Modifier.height(20.dp))
 
             AsyncImage(
-                model = characterEntity.img,
+                model = character.img,
                 contentDescription = "imgCharacter",
                 modifier = Modifier
                     .size(250.dp)
@@ -113,8 +109,8 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-        }
 
+        }
         item {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -128,11 +124,11 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Text("Gender: ${characterEntity.gender}",
+                Text("Gender: ${character.gender}",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Text("Status: ${characterEntity.status}",
+                Text("Status: ${character.status}",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -144,4 +140,5 @@ fun DetailScreen(navController: NavController, viewModel: MainViewModel, bdViewM
             }
         }
     }
+
 }

@@ -23,10 +23,6 @@ class SearchBarViewModel : ViewModel() {
     var searchHistory = mutableStateListOf<String>()
         private set
 
-    // 4. NOVES DADES: La "Base de Dades" simulada
-    // (Això normalment vindria d'una API o Base de Dades real)
-
-    // 5. RESULTATS FILTRATS: La llista que ensenyarem quan busquem
     var filteredNames = mutableStateListOf<String>()
         private set
 
