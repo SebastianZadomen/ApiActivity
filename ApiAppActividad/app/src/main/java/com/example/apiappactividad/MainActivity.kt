@@ -35,12 +35,15 @@
     import com.example.apiappactividad.navigation.Destinations
     import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
     import androidx.compose.ui.unit.dp
+    import com.example.apiappactividad.data.RecyclerView.SettingsRepository
     import com.example.apiappactividad.ui.theme.ApiAppActividadTheme
     import com.example.apiappactividad.ui.viewmodel.MainViewModel
     import com.example.apiappactividad.navigation.NavigationItem
     import com.example.apiappactividad.navigation.NavigationWrapper
     import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
     import com.example.apiappactividad.ui.viewmodel.CharacterViewModelFactory
+    import com.example.apiappactividad.ui.viewmodel.SettingsViewModel
+    import com.example.apiappactividad.ui.viewmodel.SettingsViewModelFactory
     import com.example.apiappactividad.ui.viewmodel.ViewDesign
 
 
@@ -73,6 +76,12 @@
         val context = LocalContext.current
         val database = AppDatabase.getDatabase(context)
         val dao = database.characterDao()
+
+        val repository = remember { SettingsRepository(context) }
+        val reciView: SettingsViewModel = viewModel(
+            factory = SettingsViewModelFactory(repository)
+        )
+
 
         val factory = CharacterViewModelFactory(dao)
 
@@ -128,17 +137,18 @@
                 }
             }
         ) { innerPadding ->
-            if (mainViewModel.state)
+            if (reciView.modeDark)
             {
                 color = Color.Black
             }
             else
             {
                 color = Color.White
+                innerPadding ;
             }
 
             Box(modifier = Modifier.background(color)) {
-                NavigationWrapper(navController,mainViewModel,bdViewModel,viewDesignResponsi)
+                NavigationWrapper(navController,mainViewModel,bdViewModel,viewDesignResponsi,reciView)
             }
         }
     }

@@ -50,11 +50,7 @@ class MainViewModel : ViewModel() {
 
     var selectedText by mutableStateOf("")
 
-    var showGrid by mutableStateOf(true)
 
-    val showMode = listOf("List", "Grid")
-
-    var expanded by  mutableStateOf(false)
 
     var state by mutableStateOf(false)
 

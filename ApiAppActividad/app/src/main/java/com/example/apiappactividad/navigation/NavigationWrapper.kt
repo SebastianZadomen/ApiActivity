@@ -12,6 +12,7 @@ import com.example.apiappactividad.ui.screens.Screen3
 import com.example.apiappactividad.ui.viewmodel.CharacterViewModel
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
+import com.example.apiappactividad.ui.viewmodel.SettingsViewModel
 import com.example.apiappactividad.ui.viewmodel.ViewDesign
 
 @Composable
@@ -19,7 +20,8 @@ fun NavigationWrapper(
     navController: NavHostController,
     mainViewModel: MainViewModel,
     bdViewModel: CharacterViewModel,
-    viewDesignResponsi: ViewDesign
+    viewDesignResponsi: ViewDesign,
+    reciView: SettingsViewModel
 ) {
 
     val searchViewModel: SearchBarViewModel = viewModel()
@@ -30,15 +32,15 @@ fun NavigationWrapper(
     ) {
 
         composable(Destinations.Screen1.route) {
-            Screen1(navController, mainViewModel, searchViewModel,viewDesignResponsi)
+            Screen1(navController, mainViewModel, searchViewModel,viewDesignResponsi,reciView)
         }
 
         composable(Destinations.Screen2.route) {
-            Screen2(navController, mainViewModel, bdViewModel,viewDesignResponsi)
+            Screen2(navController, mainViewModel, bdViewModel,viewDesignResponsi,reciView)
         }
 
         composable(Destinations.Screen3.route) {
-            Screen3(navController, mainViewModel,viewDesignResponsi)
+            Screen3(navController, mainViewModel,viewDesignResponsi,reciView)
         }
 
         composable(Destinations.DetailScreen.route) {

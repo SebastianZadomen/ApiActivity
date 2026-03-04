@@ -12,28 +12,23 @@ import kotlin.text.isNotEmpty
 
 class SearchBarViewModel : ViewModel() {
 
-    // 1. ESTAT DEL TEXT (Query)
     var searchedText by mutableStateOf("")
         private set
 
-    // 2. ESTAT DE SI LA BARRA ESTÀ ACTIVA
     var active by mutableStateOf(false)
 
-    // 3. ESTAT DE L'HISTORIAL (El que ja teníem)
     var searchHistory = mutableStateListOf<String>()
         private set
 
     var filteredNames = mutableStateListOf<String>()
         private set
 
-    // FUNCIONS (Events)
     fun onSearchTextChange(text: String) {
         searchedText = text
     }
 
     fun onActiveChange(isActive: Boolean) {
         active = isActive
-        // Opcional: Si tanquem la barra, potser volem netejar la cerca
         if (!isActive) {
              searchedText = ""
             // filteredNames.clear()

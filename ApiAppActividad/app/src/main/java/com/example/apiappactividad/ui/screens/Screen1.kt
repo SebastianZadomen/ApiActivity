@@ -46,6 +46,7 @@ import coil.compose.AsyncImage
 import com.example.apiappactividad.navigation.Destinations
 import com.example.apiappactividad.ui.viewmodel.MainViewModel
 import com.example.apiappactividad.ui.viewmodel.SearchBarViewModel
+import com.example.apiappactividad.ui.viewmodel.SettingsViewModel
 import com.example.apiappactividad.ui.viewmodel.ViewDesign
 
 
@@ -55,7 +56,8 @@ fun Screen1(
     navController: NavController,
     viewModel: MainViewModel,
     searchViewModel: SearchBarViewModel,
-    vDesign: ViewDesign
+    vDesign: ViewDesign,
+    reciView: SettingsViewModel,
 ) {
     val query = searchViewModel.searchedText
 
@@ -65,23 +67,24 @@ fun Screen1(
             .contains(query.lowercase().trim())
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
 
         SearchBar(
             query = query,
+            modifier = Modifier.padding(8.dp),
             onQueryChange = { searchViewModel.onSearchTextChange(it) },
             onSearch = { searchViewModel.onSearch(it) },
             active = searchViewModel.active,
             onActiveChange = { searchViewModel.onActiveChange(it) },
             placeholder = { Text("Search character...") },
             leadingIcon = {
-                Icon(Icons.Default.Search, contentDescription = null)
+                Icon(Icons.Default.Search, contentDescription = "iconSearch")
             },
             trailingIcon = {
 
                     Icon(
                         Icons.Default.Close,
-                        contentDescription = null,
+                        contentDescription = "closeBar",
                         modifier = Modifier.clickable {
                             searchViewModel.onSearchTextChange("")
                             searchViewModel.active = false
@@ -131,7 +134,7 @@ fun Screen1(
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         } else {
-            if (!viewModel.showGrid) {
+            if (!reciView.showGrid) {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(vDesign.gridCells),
                     contentPadding = PaddingValues(8.dp)
