@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 
@@ -19,4 +20,8 @@ class ViewDesign : ViewModel() {
 
     var fontSizeName by mutableStateOf(22)
     var fontSizeDetail by mutableStateOf(15)
+
+    var colorBackground by  mutableStateOf(Color.White)
+    var colorCard by  mutableStateOf(Color.Green)
+    var colorFont by  mutableStateOf(Color.Black)
 }

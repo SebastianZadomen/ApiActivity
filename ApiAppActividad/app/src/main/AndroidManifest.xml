@@ -13,9 +13,8 @@
         android:theme="@style/Theme.ApiAppActividad">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ApiAppActividad">
+            android:theme="@style/Theme.ApiAppActividad.Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -61,17 +61,21 @@ fun Screen2(
                             viewModel.selectedCharacter = character.toResult()
                             navController.navigate(Destinations.DetailScreen.route)
                         },
-                    elevation = CardDefaults.cardElevation(4.dp)
+                    elevation = CardDefaults.cardElevation(4.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = vDesign.colorCard
+                    )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
 
                         Text(
                             text = character.name,
+                            color = vDesign.colorFont,
                             style = MaterialTheme.typography.headlineSmall
                         )
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text(text = "Genere: ${character.gender}")
-                        Text(text = "Status: ${character.status}")
+                        Text(text = "Genere: ${character.gender}",color = vDesign.colorFont)
+                        Text(text = "Status: ${character.status}",color = vDesign.colorFont)
                     }
                 }
             }
@@ -91,7 +95,10 @@ fun Screen2(
                         .padding(8.dp)
                         .clickable { viewModel.selectedCharacter = character.toResult()
                             navController.navigate(Destinations.DetailScreen.route) },
-                    elevation = CardDefaults.cardElevation(4.dp)
+                    elevation = CardDefaults.cardElevation(4.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = vDesign.colorCard
+                    )
                 ) {
                     Row(
                         modifier = Modifier
@@ -114,10 +121,13 @@ fun Screen2(
                             Text(
                                 text = character.name,
                                 style = MaterialTheme.typography.titleLarge,
-                                maxLines = 2
-                            )
+                                maxLines = 2,
+                                color = vDesign.colorFont
+
+                                )
                             Text(
                                 text = "Age: ${character.age}",
+                                color = vDesign.colorFont,
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
@@ -125,88 +135,6 @@ fun Screen2(
 
                 }}}
     }
-
-        /*
-
-        if (!viewModel.showGrid) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                contentPadding = PaddingValues(8.dp)
-            ) {
-                items(bdViewModel.characters) { character ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .clickable { viewModel.selectedCharacter = character
-                                navController.navigate(Destinations.DetailScreen.route) },
-                        elevation = CardDefaults.cardElevation(4.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            AsyncImage(
-                                model = character?.img,
-                                contentDescription = "Imatge character",
-                                modifier = Modifier
-                                    .size(50.dp)
-                                    .clip(RoundedCornerShape(16.dp))
-
-                            )
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column {
-                                Text(
-                                    text = character.name,
-                                    style = MaterialTheme.typography.titleLarge,
-                                    maxLines = 2
-                                )
-                                Text(
-                                    text = "Age: ${character.age}",
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                        }
-
-                    }}}
-        }
-        else{
-            LazyColumn(
-                contentPadding = PaddingValues(bottom = 16.dp)
-            ) {
-                items(filteredList) { character ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .clickable {
-                                viewModel.selectedCharacter = character
-                                navController.navigate(Destinations.DetailScreen.route)
-                            },
-                        elevation = CardDefaults.cardElevation(4.dp)
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-
-                            val extract = viewModel.CleanList(character.roles)
-
-                            Text(
-                                text = character.name,
-                                style = MaterialTheme.typography.headlineSmall
-                            )
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text(text = "Genere: ${character.gender}")
-                            Text(text = "Roles: $extract")
-                            Text(text = "Status: ${character.status}")
-                        }
-                    }
-                }
-            }
-        }
-*/
 
     }
 

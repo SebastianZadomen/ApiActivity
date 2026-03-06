@@ -48,4 +48,7 @@ class CharacterViewModel(private val dao: CharacterDao) : ViewModel() {
             character.copy()
         )
     }
+    fun deleteAllFavorites() = viewModelScope.launch {
+        dao.deleteAllFavorites()
+    }
 }

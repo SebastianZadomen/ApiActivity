@@ -26,4 +26,7 @@ interface CharacterDao {
     @Delete
     suspend fun deleteCharacter(character: CharacterEntity)
 
+    @Query("DELETE FROM characters WHERE isFavorite = 1")
+    suspend fun deleteAllFavorites()
+
 }

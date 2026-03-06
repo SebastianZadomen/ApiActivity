@@ -40,7 +40,7 @@ fun NavigationWrapper(
         }
 
         composable(Destinations.Screen3.route) {
-            Screen3(navController, mainViewModel,viewDesignResponsi,reciView)
+            Screen3(navController, mainViewModel,viewDesignResponsi,reciView,bdViewModel)
         }
 
         composable(Destinations.DetailScreen.route) {

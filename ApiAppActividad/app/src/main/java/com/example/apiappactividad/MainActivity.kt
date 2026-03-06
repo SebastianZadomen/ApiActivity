@@ -8,12 +8,14 @@
     import androidx.compose.foundation.layout.Box
     import androidx.compose.foundation.layout.BoxWithConstraints
     import androidx.compose.foundation.layout.fillMaxWidth
+    import androidx.compose.foundation.layout.padding
     import androidx.compose.material.icons.Icons
     import androidx.compose.material.icons.filled.Favorite
     import androidx.compose.material.icons.filled.Home
     import androidx.compose.material.icons.filled.Settings
     import androidx.compose.material3.ExperimentalMaterial3Api
     import androidx.compose.material3.Icon
+    import androidx.compose.material3.MaterialTheme
     import androidx.compose.material3.NavigationBar
     import androidx.compose.material3.NavigationBarItem
     import androidx.compose.material3.Scaffold
@@ -35,6 +37,7 @@
     import com.example.apiappactividad.navigation.Destinations
     import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
     import androidx.compose.ui.unit.dp
+    import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
     import com.example.apiappactividad.data.RecyclerView.SettingsRepository
     import com.example.apiappactividad.ui.theme.ApiAppActividadTheme
     import com.example.apiappactividad.ui.viewmodel.MainViewModel
@@ -45,14 +48,14 @@
     import com.example.apiappactividad.ui.viewmodel.SettingsViewModel
     import com.example.apiappactividad.ui.viewmodel.SettingsViewModelFactory
     import com.example.apiappactividad.ui.viewmodel.ViewDesign
-
+    import com.example.apiappactividad.ui.theme.*
 
     class MainActivity : ComponentActivity() {
 
         @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            enableEdgeToEdge()
+            installSplashScreen()
             setContent {
                 ApiAppActividadTheme {
                     val windowSize = calculateWindowSizeClass(this)
@@ -68,7 +71,7 @@
     @Composable
     fun MyApp(widthSizeClass: WindowWidthSizeClass) {
         var selectedItem by remember { mutableIntStateOf(0) }
-        var color by remember { mutableStateOf(Color.White)  }
+
 
         val navController = rememberNavController()
         val mainViewModel: MainViewModel = viewModel()
@@ -139,15 +142,20 @@
         ) { innerPadding ->
             if (reciView.modeDark)
             {
-                color = Color.Black
+                viewDesignResponsi.colorBackground = Color.Black
+                viewDesignResponsi.colorCard = FontCardDark
+                viewDesignResponsi.colorFont = Color.White
             }
             else
             {
-                color = Color.White
-                innerPadding ;
+                viewDesignResponsi.colorBackground = Color.White
+                viewDesignResponsi.colorCard = FontCard
+                viewDesignResponsi.colorFont = Color.Black
+                innerPadding
+
             }
 
-            Box(modifier = Modifier.background(color)) {
+            Box(modifier = Modifier.background(viewDesignResponsi.colorBackground).padding(top = 10.dp)) {
                 NavigationWrapper(navController,mainViewModel,bdViewModel,viewDesignResponsi,reciView)
             }
         }

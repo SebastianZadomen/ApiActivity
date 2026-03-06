@@ -66,6 +66,7 @@ fun DetailScreen(
                     text = character.name,
                     fontSize = vDesign.fontSizeName.sp,
                     fontWeight = FontWeight.Bold,
+                    color = vDesign.colorFont,
                     modifier = Modifier.align(Alignment.Center)
                 )
                 IconButton(
@@ -109,27 +110,32 @@ fun DetailScreen(
             ) {
                 Text("Roles: $extractRoles",
                     textAlign = TextAlign.Center,
+                    color = vDesign.colorFont,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = vDesign.fontSizeDetail.sp
                 )
                 Text("Alias: $extractAlias",
                     textAlign = TextAlign.Center,
+                    color = vDesign.colorFont,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = vDesign.fontSizeDetail.sp
                 )
                 Text("Gender: ${character.gender}",
                     textAlign = TextAlign.Center,
+                    color = vDesign.colorFont,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = vDesign.fontSizeDetail.sp
 
                 )
                 Text("Status: ${character.status}",
                     textAlign = TextAlign.Center,
+                    color = vDesign.colorFont,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = vDesign.fontSizeDetail.sp
                 )
                 Text("Age: ${character.age}",
                     textAlign = TextAlign.Center,
+                    color = vDesign.colorFont,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = vDesign.fontSizeDetail.sp
                 )

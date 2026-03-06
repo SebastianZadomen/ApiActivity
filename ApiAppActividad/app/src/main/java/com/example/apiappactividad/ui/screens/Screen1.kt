@@ -34,8 +34,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 
@@ -72,6 +74,7 @@ fun Screen1(
         SearchBar(
             query = query,
             modifier = Modifier.padding(8.dp),
+            colors = SearchBarDefaults.colors(containerColor = vDesign.colorCard) ,
             onQueryChange = { searchViewModel.onSearchTextChange(it) },
             onSearch = { searchViewModel.onSearch(it) },
             active = searchViewModel.active,
@@ -146,7 +149,10 @@ fun Screen1(
                                 .padding(8.dp)
                                 .clickable { viewModel.selectedCharacter = character
                                     navController.navigate(Destinations.DetailScreen.route) },
-                            elevation = CardDefaults.cardElevation(4.dp)
+                            elevation = CardDefaults.cardElevation(4.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = vDesign.colorCard
+                            )
                         ) {
                             Row(
                                 modifier = Modifier
@@ -169,10 +175,12 @@ fun Screen1(
                                     Text(
                                         text = character.name,
                                         style = MaterialTheme.typography.titleLarge,
+                                        color = vDesign.colorFont,
                                         maxLines = 2
                                     )
                                     Text(
                                         text = "Age: ${character.age}",
+                                        color = vDesign.colorFont,
                                         style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
@@ -193,7 +201,10 @@ fun Screen1(
                                     viewModel.selectedCharacter = character
                                     navController.navigate(Destinations.DetailScreen.route)
                                 },
-                            elevation = CardDefaults.cardElevation(4.dp)
+                            elevation = CardDefaults.cardElevation(4.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = vDesign.colorCard
+                            )
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
 
@@ -201,12 +212,13 @@ fun Screen1(
 
                                 Text(
                                     text = character.name,
+                                    color = vDesign.colorFont,
                                     style = MaterialTheme.typography.headlineSmall
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text(text = "Genere: ${character.gender}")
-                                Text(text = "Roles: $extract")
-                                Text(text = "Status: ${character.status}")
+                                Text(text = "Genere: ${character.gender}",color = vDesign.colorFont)
+                                Text(text = "Roles: $extract",color = vDesign.colorFont)
+                                Text(text = "Status: ${character.status}",color = vDesign.colorFont)
                             }
                         }
                     }
